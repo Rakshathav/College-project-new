@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daari: Career Guidance and Information Portal</title>
+<meta name="description" content="Pick where you are in your studies and see the routes ahead: courses, entrance exams and careers for students in Karnataka.">
+<meta name="theme-color" content="#071418">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Daari">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- Link preview for WhatsApp. After hosting, change og-image.png and og:url to your full web address, for example https://your-name.github.io/daari/og-image.png -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daari">
+<meta property="og:title" content="Daari: career guidance for students">
+<meta property="og:description" content="Pick where you are in your studies and see the courses, exams, skills and careers ahead.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#071418;
+    --card:#0F2026;
+    --ink:#EAF2F2;
+    --muted:#9DB2B5;
+    --rule:#21383E;
+    --purple:#B27BE6;
+    --green:#3DD68C;
+    --amber:#F5B83D;
+    --blue:#35C3DA;
+    --coral:#FF7A59;
+    --teal:#35C3DA;
+    --display:"Instrument Serif","Iowan Old Style","Georgia",serif;
+    --body:"Public Sans","Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper) radial-gradient(ellipse 90% 60% at 50% -8%,#12383F 0%,rgba(7,20,24,0) 70%) no-repeat;color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+  h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.08;margin:0}
+  a{color:var(--blue)}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  .bar{border-bottom:1px solid var(--rule);background:rgba(7,20,24,.6)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+  .brand{font-family:var(--display);font-size:1.6rem;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+  .brand svg{display:block}
+  nav a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem}
+  nav a:hover{color:var(--ink);text-decoration:underline}
+
+  .hero{padding:56px 0 20px;text-align:center}
+  .hero h1{font-size:clamp(2.7rem,7.5vw,5rem);max-width:14ch;margin:0 auto;letter-spacing:-.01em}
+  .hero p.lead{max-width:56ch;color:var(--muted);font-size:1.1rem;margin:18px auto 0}
+
+  /* orb carousel */
+  .orbs{position:relative;margin:10px -20px 18px}
+  .orbs::before{content:"";position:absolute;left:-10%;right:-10%;top:38%;height:2px;background:linear-gradient(90deg,transparent,#35C3DA66,#F5B83D55,transparent)}
+  .orb-track{position:relative;display:flex;gap:30px;align-items:center;overflow-x:auto;scroll-snap-type:x mandatory;padding:56px calc(50% - 95px) 56px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .orb-track::-webkit-scrollbar{display:none}
+  .orb-item{all:unset;box-sizing:border-box;cursor:pointer;flex:0 0 190px;scroll-snap-align:center;text-align:center;transform:scale(.7);opacity:.6;transition:transform .6s ease,opacity .6s ease}
+  .orb-item.on{transform:scale(1.12);opacity:1}
+  .orb-item:focus-visible{outline:3px solid var(--blue);outline-offset:6px;border-radius:24px}
+  .orb{display:block;width:190px;height:190px;border-radius:50%;
+    background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.38),transparent 38%),conic-gradient(from 210deg,var(--o1),var(--o2),var(--o3),var(--o1));
+    box-shadow:inset -18px -22px 38px rgba(0,0,0,.5),0 0 70px -10px var(--o1)}
+  .orb-name{display:block;margin-top:16px;font-family:var(--display);font-size:1.6rem;line-height:1.1}
+  .orb-sub{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+
+  .boarding{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;text-align:left;margin-top:26px}
+  .course-search{width:100%;max-width:520px;min-height:48px;margin:0 0 20px;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink);font:inherit}
+  .course-search:focus{outline:3px solid var(--blue);outline-offset:2px}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .fcard[hidden]{display:none}
+  .contact-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  .contact-links a{flex:1 1 220px;min-height:44px;padding:10px 14px;border:1px solid var(--rule);border-radius:6px;text-decoration:none;overflow-wrap:anywhere}
+  .board{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border:1.5px solid var(--rule);border-left:10px solid var(--c);border-radius:10px;padding:16px 18px;display:block}
+  .board:hover{border-color:var(--c)}
+  .board strong{display:block;font-family:var(--display);font-weight:400;font-size:1.4rem}
+  .board span{display:block;color:var(--muted);font-size:.93rem;margin-top:2px}
+  .board[aria-pressed="true"]{background:#173842;border-color:var(--c)}
+  .board:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+  section{padding:44px 0}
+  .sec-head{margin-bottom:24px}
+  .sec-head h2{font-size:clamp(2rem,4.6vw,2.9rem)}
+  .sec-head p{color:var(--muted);max-width:60ch;margin:8px 0 0}
+  #routes-intro{font-size:1.05rem;margin:0 0 22px;max-width:62ch;color:var(--muted)}
+  .routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .route{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:22px 22px 8px}
+  .route h3{font-size:1.55rem;margin-bottom:16px;color:var(--c)}
+  .stops{list-style:none;margin:0;padding:0 0 0 26px;border-left:6px solid var(--c);margin-left:7px}
+  .stops li{position:relative;padding-bottom:20px}
+  .stops li::before{content:"";position:absolute;left:-39px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--card);border:5px solid var(--c)}
+  .stops li:last-child{padding-bottom:16px}
+  .stops li:last-child::before{background:var(--c)}
+  .stops strong{display:block;font-weight:600}
+  .stops span{display:block;color:var(--muted);font-size:.95rem}
+  .empty{padding:28px;border:2px dashed var(--rule);border-radius:12px;color:var(--muted);background:var(--card)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .chip{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 15px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);font-weight:500;font-size:.95rem}
+  .chip:hover{border-color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--blue);color:#071418;border-color:var(--blue)}
+  .chip:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .careers{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .career{background:var(--card);border:1px solid var(--rule);border-top:6px solid var(--c);border-radius:10px;padding:18px 20px}
+  .career h3{font-size:1.45rem}
+  .tag{display:inline-block;font-size:.85rem;font-weight:600;color:var(--c);margin:4px 0 10px}
+  .career p{margin:0 0 8px;font-size:.96rem}
+  .career p b{font-weight:600}
+
+  .quiz{background:#0C242B;border:1px solid var(--rule);color:var(--ink);border-radius:16px;padding:32px 28px}
+  .quiz .sec-head p{color:var(--muted)}
+  .q-count{color:var(--muted);font-size:.95rem;margin-bottom:6px}
+  .q-text{font-family:var(--display);font-size:1.9rem;margin:0 0 18px}
+  .opts{display:grid;gap:10px;max-width:640px}
+  .opt{all:unset;box-sizing:border-box;cursor:pointer;padding:13px 16px;border-radius:10px;background:#16303A;border:1.5px solid #2A4650}
+  .opt:hover{border-color:var(--blue)}
+  .opt:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .bar-progress{height:6px;background:#2A4650;border-radius:6px;margin-bottom:22px;max-width:640px;overflow:hidden}
+  .bar-progress i{display:block;height:100%;background:var(--amber);width:0}
+  .result h3{font-size:2rem;margin-bottom:6px}
+  .result .match{background:#16303A;border-left:8px solid var(--c);border-radius:10px;padding:16px 18px;margin:14px 0;max-width:640px}
+  .result .match strong{font-family:var(--display);font-weight:400;font-size:1.5rem}
+  .btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-block;padding:10px 18px;border-radius:10px;font-weight:600;background:var(--blue);color:#071418;margin:6px 10px 0 0}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .match .btn{margin-top:10px;font-size:.92rem;padding:8px 14px}
+
+  .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule);border-radius:12px}
+  table{border-collapse:collapse;width:100%;min-width:620px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--rule);vertical-align:top;font-size:.96rem}
+  th{font-family:var(--display);font-weight:400;font-size:1.2rem;background:#14303A}
+  tr:last-child td{border-bottom:none}
+  td:first-child{font-weight:600;white-space:nowrap}
+
+  details{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+  summary{cursor:pointer;font-weight:600}
+  details p{margin:10px 0 0;color:var(--muted)}
+
+  footer{border-top:1px solid var(--rule);background:rgba(7,20,24,.6);padding:30px 0;margin-top:30px;color:var(--muted);font-size:.93rem}
+  footer strong{color:var(--ink)}
+
+  @media (max-width:600px){
+    body{font-size:16px}
+    nav a{margin-left:12px}
+    .hero{padding-top:36px}
+    .quiz{padding:24px 18px}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.orb-item{transition:none}}
+
+  /* creators */
+  .credit{color:var(--muted);font-size:1rem;margin:30px 0 0}
+  .credit b{color:var(--ink);font-weight:600}
+
+  /* after 10th card fan */
+  .deckwrap{position:relative;max-width:900px;margin:0 auto}
+  .deck{position:relative;height:370px;margin:0 auto;touch-action:pan-y;user-select:none}
+  .fcard{all:unset;box-sizing:border-box;position:absolute;left:calc(50% - 115px);top:30px;width:230px;height:310px;border-radius:22px;cursor:pointer;
+    color:#12203A;background:linear-gradient(165deg,var(--p1),var(--p2));
+    border:2px solid rgba(255,255,255,.65);box-shadow:0 14px 30px rgba(0,0,0,.45), inset 0 0 0 5px rgba(255,255,255,.18);
+    transform-origin:50% 135%;
+    transform:translateX(calc(var(--d) * 74px)) rotate(calc(var(--d) * 7deg)) scale(.94);
+    z-index:calc(20 - var(--ad));opacity:calc(1 - var(--ad) * .12);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s;display:block;overflow:hidden}
+  .fcard[data-hide="1"]{opacity:0;pointer-events:none}
+  .fcard.sel{transform:translateX(0) rotate(0) translateY(-18px) scale(1.07);box-shadow:0 20px 44px rgba(0,0,0,.55),0 0 0 3px var(--c)}
+  .fcard:focus-visible{outline:3px solid #fff;outline-offset:4px}
+  .fc-top{display:block;padding:20px 20px 0}
+  .fc-years{display:block;font-family:var(--display);font-size:3.2rem;line-height:1;color:rgba(18,32,58,.9)}
+  .fc-unit{display:block;font-size:.9rem;font-weight:600;color:rgba(18,32,58,.7)}
+  .fc-art{position:absolute;right:-26px;top:26px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.85),var(--c));opacity:.8}
+  .fc-label{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.86);padding:12px 16px 14px;border-top:2px solid var(--c)}
+  .fc-label strong{display:block;font-size:1.02rem;line-height:1.25}
+  .fc-label em{display:block;font-style:normal;font-size:.82rem;color:#3B4B66;margin-top:2px}
+  .deck-ctl{display:flex;justify-content:center;align-items:center;gap:14px;margin:6px 0 4px}
+  .nbtn{all:unset;box-sizing:border-box;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--rule);background:var(--card);display:grid;place-items:center}
+  .nbtn:hover{border-color:var(--ink)}
+  .nbtn:disabled{opacity:.4;cursor:not-allowed}
+  .nbtn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+  .dots{display:flex;gap:8px}
+  .dots i{width:9px;height:9px;border-radius:50%;background:var(--rule);display:block;transition:background .3s,transform .3s}
+  .dots i.on{background:var(--c,var(--blue));transform:scale(1.35)}
+  .hint{text-align:center;color:var(--muted);font-size:.9rem;margin:6px 0 0}
+
+  .flowpanel{margin-top:26px;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:26px 26px 12px}
+  .flowpanel h3{font-size:2rem;color:var(--c)}
+  .facts{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 26px}
+  .fact{border:1px solid var(--rule);border-radius:999px;padding:5px 14px;font-size:.9rem;color:var(--muted)}
+  .fact b{color:var(--ink);font-weight:600}
+  .flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .flow li{position:relative;border-top:6px solid var(--c);padding:24px 18px 20px 0;margin-right:10px}
+  .flow li::before{content:"";position:absolute;left:0;top:-13px;width:20px;height:20px;border-radius:50%;background:var(--card);border:5px solid var(--c)}
+  .flow li:last-child{margin-right:0}
+  .flow li:last-child::before{background:var(--c)}
+  .flow strong{display:block;font-weight:600;margin-bottom:4px}
+  .flow span{display:block;color:var(--muted);font-size:.94rem}
+  @media (max-width:700px){
+    .deck{height:350px}
+    .fcard{width:210px;height:290px;left:calc(50% - 105px);transform:translateX(calc(var(--d) * 46px)) rotate(calc(var(--d) * 8deg)) scale(.94)}
+    .fcard.sel{transform:translateY(-16px) scale(1.05)}
+    .flowpanel{padding:22px 18px 8px}
+    .flow{grid-template-columns:1fr;border-left:6px solid var(--c);padding-left:26px;margin-left:7px}
+    .flow li{border-top:none;padding:0 0 20px 0;margin:0}
+    .flow li::before{left:-39px;top:3px}
+  }
+  @media (prefers-reduced-motion:reduce){.fcard{transition:none}}
+
+  /* login */
+  nav{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0}
+  .loginbtn{all:unset;box-sizing:border-box;cursor:pointer;margin-left:20px;padding:8px 18px;border-radius:999px;background:var(--blue);color:#071418;font-weight:600;font-size:.95rem}
+  .loginbtn:hover{filter:brightness(1.1)}
+  .loginbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .who{margin-left:18px;color:var(--ink);font-size:.95rem}
+  dialog{border:1px solid var(--rule);background:#0C242B;color:var(--ink);border-radius:16px;padding:0;width:calc(100% - 32px);max-width:420px;margin:auto}
+  dialog::backdrop{background:rgba(2,8,10,.72)}
+  .dlg{position:relative;padding:28px 26px 22px}
+  .dlg h2{font-size:2rem;margin-bottom:16px;padding-right:34px}
+  .xbtn{all:unset;box-sizing:border-box;cursor:pointer;position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+  .xbtn:hover{color:var(--ink);background:#16303A}
+  .xbtn:focus-visible{outline:3px solid var(--blue)}
+  .tabs{display:flex;gap:6px;background:#16303A;border-radius:999px;padding:4px;margin-bottom:18px}
+  .tabs button{all:unset;box-sizing:border-box;cursor:pointer;flex:1;text-align:center;padding:8px 10px;border-radius:999px;font-weight:600;font-size:.93rem;color:var(--muted)}
+  .tabs button[aria-selected="true"]{background:var(--ink);color:#071418}
+  .tabs button:focus-visible{outline:3px solid var(--blue)}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:5px}
+  .field input{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid #2A4650;background:#071418;color:var(--ink);font:inherit}
+  .field input:focus{outline:3px solid var(--blue);outline-offset:1px;border-color:var(--blue)}
+  .err{color:#FF9B85;font-size:.92rem;margin:0 0 12px}
+  .submit{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;text-align:center;padding:12px;border-radius:10px;font-weight:600;background:var(--blue);color:#071418}
+  .submit:hover{filter:brightness(1.1)}
+  .submit:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .note{color:var(--muted);font-size:.82rem;margin:14px 0 0}
+  @media (max-width:600px){.loginbtn{margin-left:12px}.who{margin-left:12px}}
+
+  /* motion graphics style skill reel */
+  .flowpanel{--pp:26px;overflow:hidden}
+  @media (max-width:700px){.flowpanel{--pp:18px}}
+  .reel{overflow:hidden;margin:4px calc(-1 * var(--pp)) 22px;padding:2px 0;border-block:1px solid var(--rule);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .reel-track{display:flex;width:max-content;animation:reel 28s linear infinite}
+  .reel-track span{font-family:var(--display);font-size:clamp(2.2rem,6.5vw,3.8rem);line-height:1.3;padding-right:36px;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px var(--c)}
+  .reel-track span:nth-child(even){color:var(--c);-webkit-text-stroke:0}
+  @keyframes reel{to{transform:translateX(-50%)}}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.6) translateY(10px)}to{opacity:1;transform:none}}
+  .flow li{animation:rise .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--k) * .12s + .1s)}
+  .subhead{font-family:var(--display);font-weight:400;font-size:1.7rem;margin:6px 0 4px}
+  .subnote{color:var(--muted);font-size:.93rem;margin:0 0 14px}
+  .roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:0 0 18px}
+  .role{background:#0C242B;border:1px solid var(--rule);border-radius:14px;padding:16px 16px 14px;
+    animation:pop .55s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(var(--k) * .1s + .35s);transition:transform .3s,border-color .3s}
+  .role:hover{transform:translateY(-4px) rotate(-.6deg);border-color:var(--c)}
+  .role h4{font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.1;margin:0 0 10px;color:var(--c)}
+  .skills{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .skills li{border:1.5px solid var(--c);border-radius:999px;padding:3px 11px;font-size:.86rem;
+    animation:pop .45s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(var(--k) * .1s + var(--j) * .05s + .5s)}
+  .hero h1 .w{display:inline-block;animation:rise .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--k) * .09s)}
+  @media (prefers-reduced-motion:reduce){
+    .reel-track{animation:none;width:auto;flex-wrap:wrap}
+    .flow li,.role,.skills li,.hero h1 .w{animation:none}
+    .role{transition:none}
+  }
+
+  /* career bubbles */
+  .bboard{position:relative;border-radius:22px;overflow:hidden;color:#16181D;border:1px solid #B9B9BE;
+    background:radial-gradient(rgba(0,0,0,.17) 1px,transparent 1.5px) 0 0/14px 14px,linear-gradient(180deg,#EEEEEF,#C8C8CC)}
+  .bmain{display:grid;grid-template-columns:190px 1fr}
+  .btabs{display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:flex-start;padding:24px 0 24px 22px}
+  .btab{all:unset;box-sizing:border-box;cursor:pointer;font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;font-weight:600;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;padding:9px 14px;border-radius:7px;background:rgba(0,0,0,.1);color:#2A2C31;white-space:nowrap}
+  .btab:hover{background:rgba(0,0,0,.18)}
+  .btab[aria-pressed="true"],.btab[aria-pressed="true"]:hover{background:#0B0B0B;color:#fff}
+  .btab:focus-visible{outline:3px solid #0B57D0;outline-offset:2px}
+  .bstage{position:relative;min-height:560px}
+  .bubble{all:unset;box-sizing:border-box;position:absolute;display:block;cursor:pointer;
+    transition:left .9s cubic-bezier(.3,.9,.3,1),top .9s cubic-bezier(.3,.9,.3,1),width .9s cubic-bezier(.3,.9,.3,1),height .9s cubic-bezier(.3,.9,.3,1);
+    animation:inflate .8s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(var(--i) * .09s)}
+  .bubble:hover{z-index:5}
+  .bfloat{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);
+    background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.98),rgba(255,255,255,.55) 36%,rgba(196,196,201,.7) 100%);
+    box-shadow:inset -10px -14px 26px rgba(0,0,0,.08),0 14px 30px rgba(0,0,0,.14);
+    animation:drift var(--dur,8s) ease-in-out infinite;animation-delay:var(--del,0s)}
+  .bfloat::after{content:"";position:absolute;left:17%;top:11%;width:28%;height:13%;border-radius:50%;background:rgba(255,255,255,.8);filter:blur(2px);transform:rotate(-28deg);pointer-events:none}
+  .bubble.sel .bfloat{background:radial-gradient(circle at 30% 24%,#fff,#F4F4F5 42%,#D6D6DA 100%);box-shadow:inset -12px -16px 30px rgba(0,0,0,.07),0 18px 40px rgba(0,0,0,.2),0 0 0 4px var(--c)}
+  .bubble:focus-visible .bfloat{outline:3px solid #0B57D0;outline-offset:4px}
+  .binner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3em;width:100%;height:100%;padding:12%;text-align:center;transition:transform .35s}
+  .bubble:hover .binner{transform:scale(1.05)}
+  .binner.burst{animation:burst .6s ease-out}
+  .bicon{color:#14161C;display:block;line-height:0}
+  .bic{width:var(--ic);height:var(--ic);display:block}
+  .bubble.noic .bicon{display:none}
+  .bname{font-family:var(--display);font-size:var(--fs);line-height:1.05;color:#14161C}
+  @keyframes drift{
+    0%,100%{transform:translate(0,0);border-radius:50%}
+    25%{transform:translate(var(--dx,10px),calc(var(--dy,10px) * -1));border-radius:52% 48% 50% 50% / 50% 52% 48% 50%}
+    50%{transform:translate(calc(var(--dx,10px) * -.7),var(--dy,10px));border-radius:48% 52% 51% 49% / 51% 49% 52% 48%}
+    75%{transform:translate(calc(var(--dx,10px) * .5),calc(var(--dy,10px) * .5));border-radius:50% 50% 48% 52% / 49% 51% 50% 50%}
+  }
+  @keyframes inflate{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes burst{0%{transform:scale(.88)}60%{transform:scale(1.07)}100%{transform:scale(1)}}
+
+  .bdetail{border-top:1px solid rgba(0,0,0,.14);background:rgba(255,255,255,.6);padding:22px 26px 24px;color:#1C1F26}
+  .bd-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px;animation:rise .5s ease backwards}
+  .bd-head h3{font-size:2.2rem;color:#11131A}
+  .bd-tag{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem;color:#2A2C31;background:rgba(0,0,0,.07);border-radius:999px;padding:4px 14px}
+  .bd-tag::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+  .bd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .bd-grid h4{font-family:var(--body);font-size:.95rem;font-weight:600;margin:0 0 6px;color:#11131A}
+  .bd-grid p{margin:0;font-size:.97rem;color:#2B2F38}
+  .bd-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+  .bd-chips li{background:rgba(255,255,255,.8);border:1.5px solid rgba(0,0,0,.2);border-radius:999px;padding:3px 12px;font-size:.88rem;color:#1C1F26;
+    animation:pop .45s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(var(--j) * .06s + .1s)}
+  @media (max-width:700px){
+    .bmain{grid-template-columns:1fr}
+    .btabs{flex-direction:row;overflow-x:auto;padding:16px 16px 4px;gap:8px;scrollbar-width:none}
+    .btabs::-webkit-scrollbar{display:none}
+    .bstage{min-height:480px}
+    .bd-grid{grid-template-columns:1fr;gap:16px}
+    .bdetail{padding:20px 18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .bfloat{animation:none}
+    .bubble{animation:none;transition:none}
+    .bd-chips li,.bd-head,.binner.burst{animation:none}
+  }
+
+  /* mobile and app comfort */
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  button,a,summary,.fcard,.bubble,.orb-item{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+  .bar{padding-top:env(safe-area-inset-top)}
+  .wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+  footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+  .field input{font-size:16px}
+  .btab{min-height:44px;display:inline-flex;align-items:center}
+  .loginbtn{min-height:44px;display:inline-flex;align-items:center}
+  summary{padding:6px 0}
+  .bfloat{will-change:transform}
+
+  .sharecard{background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:26px}
+  .sharecard h2{font-size:clamp(1.8rem,4vw,2.4rem)}
+  .sharecard p{color:var(--muted);margin:8px 0 18px;max-width:56ch}
+  .share-actions{display:flex;flex-wrap:wrap;gap:10px}
+  .sbtn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font-weight:600;background:var(--blue);color:#071418}
+  .sbtn.wa{background:#25D366}
+  .sbtn[hidden]{display:none}
+  .sbtn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .howto{margin-top:16px}
+  .howto p{margin:8px 0 0}
+
+  .tabbar{display:none}
+  @media (max-width:700px){
+    .bar .wrap{row-gap:8px}
+    nav{width:100%;flex-wrap:nowrap;gap:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:6px}
+    nav::-webkit-scrollbar{display:none}
+    nav a{display:block;flex:0 0 auto;white-space:nowrap;margin-left:0;margin-right:18px}
+    .loginbtn{flex:0 0 auto}
+    .who{display:none}
+    body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+    .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;justify-content:space-around;
+      background:rgba(7,20,24,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--rule);
+      padding:6px max(6px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-right))}
+    .tb{all:unset;box-sizing:border-box;cursor:pointer;flex:1;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.72rem;font-weight:500;color:var(--muted);border-radius:12px}
+    .tb svg{width:22px;height:22px}
+    .tb.on{color:var(--blue)}
+    .tb:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
+    .bfloat{animation-name:drift-lite;box-shadow:inset -8px -10px 18px rgba(0,0,0,.08),0 8px 16px rgba(0,0,0,.14)}
+    .bubble.sel .bfloat{box-shadow:inset -8px -10px 18px rgba(0,0,0,.07),0 10px 22px rgba(0,0,0,.18),0 0 0 4px var(--c)}
+    dialog{margin:auto 0 0;max-width:100%;width:100%;border-radius:20px 20px 0 0}
+    .dlg{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+    .orb-item{flex:0 0 170px}
+    .orb{width:170px;height:170px}
+    .orb-track{padding-left:calc(50% - 85px);padding-right:calc(50% - 85px)}
+    footer .wrap p{overflow-wrap:anywhere}
+  }
+  @keyframes drift-lite{
+    0%,100%{transform:translate(0,0)}
+    25%{transform:translate(var(--dx,10px),calc(var(--dy,10px) * -1))}
+    50%{transform:translate(calc(var(--dx,10px) * -.7),var(--dy,10px))}
+    75%{transform:translate(calc(var(--dx,10px) * .5),calc(var(--dy,10px) * .5))}
+  }
+
+  /* keep the fanned cards inside the screen on phones */
+  .deckwrap{overflow:hidden;padding-bottom:8px}
+  html,body{max-width:100%;overflow-x:hidden}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Daari home">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <path d="M4 26 L14 26 L20 8 L30 8" fill="none" stroke="#B27BE6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 14 L12 14 L18 26 L30 26" fill="none" stroke="#3DD68C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="17" cy="17" r="4.5" fill="#071418" stroke="#EAF2F2" stroke-width="2.5"/>
+      </svg>
+      Daari
+    </a>
+    <nav aria-label="Main">
+      <a href="#after10">After 10th</a>
+      <a href="#routes">Routes</a>
+      <a href="#careers">Careers</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#exams">Exams</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <span id="who" class="who" hidden></span>
+      <button type="button" class="loginbtn" id="loginBtn">Log in</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <h1>Pick where you are. See where it goes.</h1>
+      <p class="lead">Every course, entrance exam and career is a stop on a route. Choose your starting point and follow the line, whether you are finishing 10th, 12th, a diploma or a degree.</p>
+      <p class="credit">Developed by <b>Rakshath AV</b>. Co-Team Members: <b>Harshith N</b>, <b>Ravi Chandhran V</b> and <b>Jasmitha R</b>.</p>
+      <div class="orbs" role="region" aria-label="Meet the team">
+        <div class="orb-track" id="orb-track">
+          <button class="orb-item" type="button" style="--o1:#35C3DA;--o2:#F5B83D;--o3:#1B3A42" aria-label="Rakshath AV"><span class="orb"></span><span class="orb-name">Rakshath AV</span><span class="orb-sub">Developer</span></button>
+          <button class="orb-item" type="button" style="--o1:#FF7A59;--o2:#B8334A;--o3:#F5B83D" aria-label="Ravi Chandhran V"><span class="orb"></span><span class="orb-name">Ravi Chandhran V</span><span class="orb-sub">Co-Team Member</span></button>
+          <button class="orb-item" type="button" style="--o1:#B27BE6;--o2:#35C3DA;--o3:#2A1B4D" aria-label="Jasmitha R"><span class="orb"></span><span class="orb-name">Jasmitha R</span><span class="orb-sub">Co-Team Member</span></button>
+          <button class="orb-item" type="button" style="--o1:#3DD68C;--o2:#F5B83D;--o3:#10352B" aria-label="Harshith N"><span class="orb"></span><span class="orb-name">Harshith N</span><span class="orb-sub">Co-Team Member</span></button>
+        </div>
+      </div>
+      <div class="boarding" role="group" aria-label="Choose your starting point">
+        <button class="board" style="--c:#B27BE6" data-path="sslc" aria-pressed="false"><strong>After 10th (SSLC)</strong><span>PUC, diploma or ITI</span></button>
+        <button class="board" style="--c:#3DD68C" data-path="puc" aria-pressed="false"><strong>After 12th (2nd PUC)</strong><span>Degrees and entrance exams</span></button>
+        <button class="board" style="--c:#F5B83D" data-path="diploma" aria-pressed="false"><strong>After a diploma</strong><span>Work, DCET or skill-up</span></button>
+        <button class="board" style="--c:#4C9BFF" data-path="degree" aria-pressed="false"><strong>During or after a degree</strong><span>Jobs, higher studies, exams</span></button>
+      </div>
+    </div>
+
+    <section id="after10" aria-labelledby="after10-h">
+      <div class="sec-head">
+        <h2 id="after10-h">Courses after 10th</h2>
+        <p>Choose a card to follow its flow, step by step. Swipe, drag, use the arrow buttons, or press the left and right arrow keys.</p>
+      </div>
+      <label class="visually-hidden" for="courseSearch">Search courses</label>
+      <input class="course-search" id="courseSearch" type="search" placeholder="Search courses, subjects or careers..." autocomplete="off">
+      <div class="deckwrap">
+        <div class="deck" id="deck" role="group" aria-label="Courses after 10th"></div>
+        <div class="deck-ctl">
+          <button class="nbtn" id="prevCourse" type="button" aria-label="Previous course"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3 5 9l6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="dots" id="deckDots" aria-hidden="true"></div>
+          <button class="nbtn" id="nextCourse" type="button" aria-label="Next course"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="m7 3 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="flowpanel" id="flowpanel" aria-live="polite"></div>
+    </section>
+
+    <section id="routes" aria-labelledby="routes-h">
+      <div class="sec-head">
+        <h2 id="routes-h">Your routes</h2>
+      </div>
+      <p id="routes-intro"></p>
+      <div id="routes-out" class="routes" aria-live="polite">
+        <div class="empty">Choose a starting point above and your routes will appear here.</div>
+      </div>
+    </section>
+
+    <section id="careers" aria-labelledby="careers-h">
+      <div class="sec-head">
+        <h2 id="careers-h">Careers at a glance</h2>
+        <p>Choose a field on the left, then tap any bubble to see what the career involves, the skills to learn and the usual way in.</p>
+      </div>
+      <div class="bboard" id="bboard">
+        <div class="bmain">
+          <div class="btabs" id="btabs" role="group" aria-label="Choose a field"></div>
+          <div class="bstage" id="bstage" role="group" aria-label="Careers in this field"></div>
+        </div>
+        <div class="bdetail" id="bdetail" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-h">
+      <div class="quiz">
+        <div class="sec-head">
+          <h2 id="quiz-h">Not sure where to start?</h2>
+          <p>Six quick questions. There are no right answers, and the result is only a starting point for your own research.</p>
+        </div>
+        <div id="quiz-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="exams" aria-labelledby="exams-h">
+      <div class="sec-head">
+        <h2 id="exams-h">Entrance exams and where they lead</h2>
+        <p>Dates, eligibility and fees change every year. Always confirm on the official website of the exam body before you apply.</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Exam</th><th>Who takes it</th><th>What it opens</th></tr></thead>
+          <tbody>
+            <tr><td>KCET</td><td>2nd PUC students seeking seats in Karnataka</td><td>Engineering, farm science, pharmacy, architecture and other professional courses through KEA counselling</td></tr>
+            <tr><td>DCET</td><td>Diploma holders</td><td>Lateral entry into the 2nd year of BE/BTech, through KEA</td></tr>
+            <tr><td>NEET</td><td>2nd PUC students with Biology</td><td>MBBS, BDS, AYUSH and other medical courses</td></tr>
+            <tr><td>JEE Main</td><td>2nd PUC students with Physics and Maths</td><td>NITs, IIITs and other national engineering institutes</td></tr>
+            <tr><td>CUET</td><td>2nd PUC students of any stream</td><td>Undergraduate programmes at participating central and other universities</td></tr>
+            <tr><td>CLAT</td><td>2nd PUC students</td><td>Five-year integrated law degrees at national law universities</td></tr>
+            <tr><td>NDA</td><td>2nd PUC students who meet the UPSC rules</td><td>Officer training for the Army, Navy and Air Force</td></tr>
+            <tr><td>GATE / PGCET</td><td>Engineering graduates</td><td>M.Tech and other postgraduate programmes</td></tr>
+            <tr><td>CAT and other MBA exams</td><td>Graduates</td><td>MBA and management programmes</td></tr>
+            <tr><td>KPSC / UPSC</td><td>Graduates</td><td>State and central government services</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px;color:var(--muted);font-size:.95rem">For Karnataka exams and counselling, check the Karnataka Examinations Authority website: <a href="https://kea.kar.nic.in" target="_blank" rel="noopener">kea.kar.nic.in</a>.</p>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-h">
+      <div class="sec-head"><h2 id="faq-h">Common questions</h2></div>
+      <details><summary>I took a diploma. Can I still get a BE degree?</summary><p>Yes. Diploma holders can write DCET and, with a good rank and the eligibility conditions met, join the 2nd year of BE or BTech directly. This is called lateral entry.</p></details>
+      <details><summary>Can I switch streams after 10th if I choose wrong?</summary><p>It is harder after PUC begins, so spend time on the quiz and talk to seniors first. Many careers are open through more than one stream, and degrees such as BCom and BSc can lead to a wide range of jobs.</p></details>
+      <details><summary>Do I need a degree to build a good career?</summary><p>Not always. ITI, diploma and skill certificates lead to well-paid technical work, and you can study further later. A degree opens more doors for some careers, such as medicine, law and most government services.</p></details>
+      <details><summary>How do I pick between two courses I like?</summary><p>Look at the first year syllabus of each, talk to a student or working person in both, and check which entrance exams and fees are involved. Choose the one you can imagine studying for the next three to five years.</p></details>
+      <details><summary>Where can I find scholarships?</summary><p>Start with the National Scholarship Portal and the Karnataka state scholarship portals, and ask your college office. Deadlines are strict, so check them early in the year.</p></details>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="sec-head">
+        <h2 id="contact-h">Contact and guidance</h2>
+        <p>For personal advice, speak with your school counsellor or the admissions office of a college you are considering. For Karnataka entrance exam and counselling information, use the official KEA website.</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://kea.kar.nic.in" target="_blank" rel="noopener">Karnataka Examinations Authority</a>
+        <a href="https://dtek.karnataka.gov.in" target="_blank" rel="noopener">Karnataka Department of Technical Education</a>
+      </div>
+    </section>
+
+    <section id="share" aria-labelledby="share-h">
+      <div class="sharecard">
+        <h2 id="share-h">Take Daari with you</h2>
+        <p>Send it to a friend on WhatsApp, or add it to your home screen so it opens like an app.</p>
+        <div class="share-actions">
+          <a class="sbtn wa" id="waShare" href="https://wa.me/" target="_blank" rel="noopener">Share on WhatsApp</a>
+          <button class="sbtn" id="installBtn" type="button" hidden>Install app</button>
+        </div>
+        <details class="howto" id="howto">
+          <summary>How to add it to your home screen</summary>
+          <p><b>Android (Chrome):</b> tap the three dots, then Add to Home screen or Install app.</p>
+          <p><b>iPhone (Safari):</b> tap Share, then Add to Home Screen.</p>
+          <p>Opened this inside WhatsApp? Tap the menu and choose Open in browser first.</p>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Daari</strong> was developed by Rakshath AV, with Co-Team Members Harshith N, Ravi Chandhran V and Jasmitha R, as a community project.</p>
+    <p>This portal is a guide, not an official source. Check eligibility, dates and fees with the official exam body or college before you decide.</p>
+  </div>
+</footer>
+
+
+<div class="tabbar" role="navigation" aria-label="App navigation">
+  <a class="tb on" href="#top" data-t="hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Home</a>
+  <a class="tb" href="#after10" data-t="after10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="12" height="14" rx="2"/><path d="M8 3h10a2 2 0 0 1 2 2v12"/></svg>Courses</a>
+  <a class="tb" href="#careers" data-t="careers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="14" r="5"/><circle cx="17" cy="7" r="3"/></svg>Careers</a>
+  <a class="tb" href="#quiz" data-t="quiz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg>Quiz</a>
+  <button class="tb" id="tbAccount" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1-4 4-6 8-6s7 2 8 6"/></svg><span id="tbAccountLbl">Log in</span></button>
+</div>
+
+<dialog id="authDlg" aria-labelledby="authTitle">
+  <div class="dlg">
+    <button type="button" class="xbtn" id="authClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <h2 id="authTitle">Log in to Daari</h2>
+    <div class="tabs" role="tablist" aria-label="Log in or create an account">
+      <button type="button" role="tab" id="tabLogin" aria-selected="true">Log in</button>
+      <button type="button" role="tab" id="tabSignup" aria-selected="false">Create account</button>
+    </div>
+    <form id="authForm" novalidate>
+      <div class="field" id="nameField" hidden>
+        <label for="aName">Full name</label>
+        <input id="aName" type="text" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="aEmail">Email</label>
+        <input id="aEmail" type="email" autocomplete="email" inputmode="email">
+      </div>
+      <div class="field">
+        <label for="aPass">Password</label>
+        <input id="aPass" type="password" autocomplete="current-password">
+      </div>
+      <p class="err" id="authErr" role="alert" hidden></p>
+      <button type="submit" class="submit" id="authSubmit">Log in</button>
+    </form>
+    <p class="note">Demo login. Accounts are kept only while this page stays open, and nothing is sent anywhere.</p>
+  </div>
+</dialog>
+
+<script>
+/* ---------- Route data ---------- */
+var COLORS = ["#B27BE6","#3DD68C","#F5B83D","#4C9BFF","#FF7A59","#35C3DA"];
+
+var PATHS = {
+  sslc: {
+    intro: "After 10th you can stay in school (PUC), start a technical course (diploma), or learn a trade (ITI). Each line below ends in a different kind of future, and most of them can be joined again later.",
+    routes: [
+      {t:"Science route", s:[
+        {a:"2nd PUC Science (two years)", b:"PCMB keeps both engineering and medicine open if you are unsure."},
+        {a:"Entrance exams", b:"KCET, JEE Main, NEET. Start preparing in 1st PUC."},
+        {a:"BE/BTech, MBBS, BSc, B.Pharm and more", b:"Pick based on your rank, interest and fees."},
+        {a:"Jobs or higher studies", b:"MTech, MS, MBA, PhD, or work in industry and hospitals."}
+      ]},
+      {t:"Commerce route", s:[
+        {a:"2nd PUC Commerce", b:"Accountancy, Business Studies, Economics."},
+        {a:"BCom, BBA, BBM or CA", b:"CA is done through ICAI alongside or after your degree."},
+        {a:"Finance, accounting, banking, management", b:"Add Excel, Tally and communication skills while you study."}
+      ]},
+      {t:"Arts and humanities route", s:[
+        {a:"2nd PUC Arts", b:"History, Political Science, Sociology, languages and more."},
+        {a:"BA, law, journalism, design or education", b:"CLAT for law and various entrance exams for design and media."},
+        {a:"Law, teaching, media, civil services, social work", b:"Government exam preparation can begin during your degree."}
+      ]},
+      {t:"Diploma route", s:[
+        {a:"3-year diploma at a polytechnic", b:"Computer Science, Mechanical, Civil, Electronics and more."},
+        {a:"Start working as a technician or junior engineer", b:"Or move to the next stop."},
+        {a:"DCET and lateral entry", b:"Join the 2nd year of BE/BTech directly."},
+        {a:"Engineering graduate", b:"Same degree as other students, one year faster."}
+      ]},
+      {t:"ITI and skills route", s:[
+        {a:"ITI trade (electrician, fitter, welder, COPA and more)", b:"One to two years of hands-on training."},
+        {a:"Apprenticeship", b:"Paid on-the-job training with a company."},
+        {a:"Skilled job or your own workshop", b:"Add certificates over time to grow into supervisor roles."}
+      ]}
+    ]
+  },
+  puc: {
+    intro: "After 12th the route you can take depends on your stream, but many degrees are open to students of more than one stream. Here are the main lines.",
+    routes: [
+      {t:"Engineering line", s:[
+        {a:"Write KCET, JEE Main or COMEDK", b:"Physics, Chemistry and Maths are the base."},
+        {a:"Counselling and seat choice", b:"Rank decides the college and branch. Keep a backup list."},
+        {a:"BE/BTech (4 years)", b:"Choose a branch such as CSE, ECE, Mechanical, Civil or AI/ML."},
+        {a:"Placements, higher studies or exams", b:"Build projects and internships from the 2nd year."}
+      ]},
+      {t:"Medical and health line", s:[
+        {a:"Write NEET", b:"Needs Biology in 2nd PUC."},
+        {a:"MBBS, BDS, AYUSH, BSc Nursing, allied health", b:"Counselling is done through official medical counselling bodies."},
+        {a:"Internship, then practice or specialisation", b:"PG medical entrance follows for specialist training."}
+      ]},
+      {t:"Science degree line", s:[
+        {a:"BSc in CS, Physics, Chemistry, Maths, Biology and more", b:"Three-year degrees with strong research options."},
+        {a:"MSc, B.Ed or jobs", b:"Add programming, data and lab skills for more options."},
+        {a:"Research, teaching or industry", b:"Exams such as CSIR-NET lead to lecturer and research roles."}
+      ]},
+      {t:"Commerce and management line", s:[
+        {a:"BCom, BBA, BBM or integrated programmes", b:"Check CUET and each university's own rules."},
+        {a:"CA, CS, CMA or MBA", b:"Professional courses can start alongside your degree."},
+        {a:"Finance, business, marketing and operations roles", b:"Internships matter as much as marks."}
+      ]},
+      {t:"Law, humanities and design line", s:[
+        {a:"CLAT, CUET or design entrance exams", b:"Pick based on the course you want."},
+        {a:"BA LLB, BA, BDes, journalism or similar", b:"Portfolio and writing samples help a lot."},
+        {a:"Courts, media, design studios, civil services", b:"Start reading and practising early."}
+      ]},
+      {t:"Defence line", s:[
+        {a:"NDA exam through UPSC", b:"Check age, health and eligibility rules carefully."},
+        {a:"Training at NDA, then service academy", b:"Selection includes written tests and an interview."},
+        {a:"Officer in the Army, Navy or Air Force", b:"Other entries open after graduation too."}
+      ]}
+    ]
+  },
+  diploma: {
+    intro: "A diploma already gives you real skills. You can start working, go straight into the 2nd year of a degree, or do both over time.",
+    routes: [
+      {t:"Lateral entry line", s:[
+        {a:"Write DCET", b:"Run by KEA. Check eligibility and the exam date each year."},
+        {a:"Counselling for BE/BTech 2nd year", b:"Seats depend on your rank, branch and availability."},
+        {a:"Complete the degree in three years", b:"Pick up projects and internships from day one."},
+        {a:"Engineer with a degree", b:"Placements, MTech, MBA or government exams."}
+      ]},
+      {t:"Work first line", s:[
+        {a:"Build a project portfolio", b:"Two or three solid projects beat a long list of topics."},
+        {a:"Apply for technician, junior engineer or trainee roles", b:"Use job portals and company career pages."},
+        {a:"Learn on the job, study part-time", b:"Distance or evening degrees can follow later."}
+      ]},
+      {t:"Government jobs line", s:[
+        {a:"Watch official notifications", b:"State and central departments post technical vacancies regularly."},
+        {a:"Prepare for the written test", b:"Technical subjects plus general knowledge and aptitude."},
+        {a:"Junior engineer or technical officer", b:"Promotion exams open the way up."}
+      ]},
+      {t:"Skill-up line", s:[
+        {a:"Pick one in-demand skill", b:"For example cloud, networking, web development, CAD or PLC."},
+        {a:"Earn a recognised certificate", b:"Pair it with a project that proves you can use it."},
+        {a:"Move into a specialised role", b:"Specialists often earn more than generalists."}
+      ]}
+    ]
+  },
+  degree: {
+    intro: "Your degree is a base, not a finish line. These lines show what usually comes next, and you can follow more than one.",
+    routes: [
+      {t:"Job line", s:[
+        {a:"Build projects, an internship and a clean CV", b:"Start in the 2nd year, not the final year."},
+        {a:"Campus placements and off-campus applications", b:"Practise aptitude, coding or technical rounds."},
+        {a:"First job", b:"Pick a place where you will learn quickly."}
+      ]},
+      {t:"Higher studies line", s:[
+        {a:"GATE, PGCET, CAT or GRE", b:"Choose the exam that fits your target course."},
+        {a:"MTech, MBA or MS", b:"Check funding, scholarships and assistantships."},
+        {a:"Specialist, researcher or manager", b:"A postgraduate degree helps in some career tracks more than others."}
+      ]},
+      {t:"Government services line", s:[
+        {a:"KPSC, UPSC, SSC or bank exams", b:"Read the syllabus first, then plan one year of steady study."},
+        {a:"Prelims, mains and interview", b:"Many candidates take more than one attempt."},
+        {a:"Officer or government employee", b:"Different services have different roles and postings."}
+      ]},
+      {t:"Start-up line", s:[
+        {a:"Find a real problem to solve", b:"Talk to ten possible customers before you build."},
+        {a:"Join your college incubator or a start-up programme", b:"Look for mentors, small grants and free workspace."},
+        {a:"Launch a small version", b:"Learn from sales and feedback, then decide how to grow."}
+      ]}
+    ]
+  }
+};
+
+/* ---------- Career data ---------- */
+var FIELDS = {
+  tech:    {name:"Technology", c:"#4C9BFF"},
+  health:  {name:"Health", c:"#FF7A59"},
+  business:{name:"Business and finance", c:"#F5B83D"},
+  creative:{name:"Creative", c:"#B27BE6"},
+  public:  {name:"Public service and law", c:"#3DD68C"},
+  trades:  {name:"Skilled trades and engineering", c:"#35C3DA"}
+};
+
+var CAREERS = [
+  {n:"Software developer", f:"tech", d:"Designs, writes and tests programs, apps and websites.", s:"Logic, a programming language, teamwork, curiosity.", r:"BE/BTech in CSE or IT, BCA/MCA, or a diploma in CS plus strong projects."},
+  {n:"Data analyst", f:"tech", d:"Turns numbers into charts and answers that help a company decide.", s:"Excel, SQL, statistics, clear communication.", r:"Any degree with maths or statistics, plus data courses and projects."},
+  {n:"Cybersecurity analyst", f:"tech", d:"Protects systems and data from attacks and finds weak spots first.", s:"Networking, Linux, careful thinking, ethics.", r:"CS or IT degree or diploma, plus security certifications and practice labs."},
+  {n:"Doctor", f:"health", d:"Diagnoses illness, treats patients and guides prevention.", s:"Biology, empathy, patience, long hours of study.", r:"NEET, then MBBS, internship and optional postgraduate specialisation."},
+  {n:"Nurse or allied health professional", f:"health", d:"Cares for patients, runs tests or supports treatment and recovery.", s:"Care, accuracy, stamina, teamwork.", r:"BSc Nursing, physiotherapy, lab technology and similar courses after 2nd PUC Science."},
+  {n:"Chartered accountant", f:"business", d:"Handles accounts, tax, audits and financial advice for organisations.", s:"Numbers, rules, focus, ethics.", r:"CA through ICAI: Foundation, Intermediate, Final, plus articleship."},
+  {n:"Business or marketing manager", f:"business", d:"Plans products, campaigns and teams to grow a business.", s:"Communication, planning, people skills, numbers.", r:"BBA/BCom then MBA, or any degree plus work experience."},
+  {n:"Graphic or UI designer", f:"creative", d:"Creates visuals, layouts and app screens that people enjoy using.", s:"Design tools, visual taste, listening to feedback.", r:"Design degree, diploma or self-learning with a strong portfolio."},
+  {n:"Video editor and content creator", f:"creative", d:"Shoots, edits and publishes video and social content.", s:"Editing software, storytelling, consistency.", r:"Short courses or self-learning, with a public portfolio of work."},
+  {n:"Lawyer", f:"public", d:"Advises clients and argues cases in court or on paper.", s:"Reading, writing, speaking, critical thinking.", r:"CLAT then five-year BA LLB, or any degree followed by LLB."},
+  {n:"Civil servant", f:"public", d:"Runs public programmes and administration at district, state or national level.", s:"General knowledge, writing, leadership, patience.", r:"Any degree, then KPSC or UPSC exams over one or more attempts."},
+  {n:"Teacher or lecturer", f:"public", d:"Helps students learn, plans lessons and mentors young people.", s:"Subject knowledge, clear explanation, patience.", r:"Degree plus B.Ed for schools, or postgraduate degree and NET/SET for colleges."},
+  {n:"Mechanical or civil engineer", f:"trades", d:"Designs, builds and maintains machines, buildings and infrastructure.", s:"Maths, physics, drawing, problem solving.", r:"Diploma then DCET, or BE after KCET. Site and plant internships help."},
+  {n:"Electrician or technician", f:"trades", d:"Installs, tests and repairs electrical and electronic systems.", s:"Safety, hands-on skill, troubleshooting.", r:"ITI or diploma, apprenticeship, and licences where required."},
+  {n:"Entrepreneur", f:"business", d:"Starts a business, finds customers and builds a team.", s:"Persistence, selling, money sense, learning fast.", r:"No fixed route. Many start while studying, with a small version first."}
+];
+
+/* ---------- Render routes ---------- */
+var boards = document.querySelectorAll(".board");
+var routesOut = document.getElementById("routes-out");
+var routesIntro = document.getElementById("routes-intro");
+
+function showPath(key){
+  var p = PATHS[key];
+  if(!p) return;
+  boards.forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.path === key)); });
+  routesIntro.textContent = p.intro;
+  routesOut.innerHTML = "";
+  p.routes.forEach(function(r, i){
+    var art = document.createElement("article");
+    art.className = "route";
+    art.style.setProperty("--c", COLORS[i % COLORS.length]);
+    var h = document.createElement("h3");
+    h.textContent = r.t;
+    var ol = document.createElement("ol");
+    ol.className = "stops";
+    r.s.forEach(function(st){
+      var li = document.createElement("li");
+      var a = document.createElement("strong"); a.textContent = st.a;
+      var b = document.createElement("span"); b.textContent = st.b;
+      li.appendChild(a); li.appendChild(b); ol.appendChild(li);
+    });
+    art.appendChild(h); art.appendChild(ol); routesOut.appendChild(art);
+  });
+}
+boards.forEach(function(b){
+  b.addEventListener("click", function(){
+    showPath(b.dataset.path);
+    var target = b.dataset.path === "sslc" ? "after10" : "routes";
+    document.getElementById(target).scrollIntoView({behavior:"smooth"});
+  });
+});
+
+/* ---------- Careers as floating bubbles ---------- */
+CAREERS.push(
+  {n:"Web developer", f:"tech", d:"Builds websites and web apps that people use in their browser.", s:"HTML, CSS, JavaScript, Git, design sense.", r:"Diploma or degree in CS or IT, or a short course plus a portfolio of live projects."},
+  {n:"AI and machine learning engineer", f:"tech", d:"Builds systems that learn from data, such as recommendations and image recognition.", s:"Python, maths and statistics, data handling, machine learning libraries.", r:"BE/BTech in CS or AI/ML, strong projects, often followed by MTech or specialised courses."},
+  {n:"Pharmacist", f:"health", d:"Prepares and explains medicines, and checks that prescriptions are safe.", s:"Chemistry, accuracy, patient communication, regulations.", r:"D.Pharm or B.Pharm after 2nd PUC Science, plus registration with the pharmacy council."},
+  {n:"Physiotherapist", f:"health", d:"Helps people recover movement and strength after injury or illness.", s:"Anatomy, patience, communication, exercise planning.", r:"BPT degree after 2nd PUC Science, then an internship."},
+  {n:"Medical lab technologist", f:"health", d:"Runs tests on samples that help doctors diagnose disease.", s:"Lab techniques, accuracy, equipment handling, hygiene.", r:"Diploma or BSc in Medical Laboratory Technology after 2nd PUC Science."},
+  {n:"Banker", f:"business", d:"Helps customers with accounts, loans and savings, and runs branch operations.", s:"Numerical ability, customer service, financial products, patience.", r:"Any degree, then bank recruitment exams such as IBPS or SBI exams."},
+  {n:"Digital marketer", f:"business", d:"Promotes products online through search, social media, email and ads.", s:"SEO, content writing, social media, analytics.", r:"Any degree or a short course, plus real campaigns or a personal project to show."},
+  {n:"Motion designer", f:"creative", d:"Makes animated graphics for videos, apps, ads and titles.", s:"After Effects, design principles, timing and easing, storyboarding.", r:"Design or multimedia course, or self-learning with a showreel of short animations."},
+  {n:"Architect", f:"creative", d:"Designs buildings and spaces that are safe, useful and good to be in.", s:"Drawing, design thinking, CAD, maths, presentation.", r:"NATA or JEE Paper 2, then a five-year B.Arch, and registration with the Council of Architecture."},
+  {n:"Photographer", f:"creative", d:"Shoots and edits photos for people, brands, news or events.", s:"Camera control, lighting, editing, building clients.", r:"Short courses or a diploma, plus a strong portfolio. Many start as assistants."},
+  {n:"Journalist", f:"public", d:"Finds, checks and reports news for print, TV or online media.", s:"Writing, interviewing, fact-checking, curiosity.", r:"Degree in journalism or any subject, plus internships and published work."},
+  {n:"Defence officer", f:"public", d:"Leads troops and operations in the Army, Navy or Air Force.", s:"Fitness, leadership, discipline, quick decisions.", r:"NDA after 12th, or CDS and other entries after a degree, followed by selection and training."},
+  {n:"Welder and fabricator", f:"trades", d:"Joins and shapes metal parts for buildings, vehicles and machines.", s:"Welding methods, blueprint reading, safety, precision.", r:"ITI in welding, then apprenticeship and certifications."},
+  {n:"Automobile technician", f:"trades", d:"Diagnoses and repairs vehicles, including their electronic systems.", s:"Engine and electrical basics, diagnostic tools, troubleshooting.", r:"ITI or diploma in automobile or mechanical engineering, then workshop experience."},
+  {n:"Civil site supervisor", f:"trades", d:"Manages work on a construction site and checks quality and safety.", s:"Reading drawings, measuring, people management, safety.", r:"Diploma in Civil Engineering, then site experience, with a degree later if you want."}
+);
+
+var FIELD_LABEL = {tech:"Technology", health:"Health", business:"Business", creative:"Creative", public:"Public service", trades:"Trades"};
+var ICONS = {
+  tech:'<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 6l-3 12"/>',
+  health:'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>',
+  business:'<path d="M5 19V11M12 19V5M19 19v-9"/>',
+  creative:'<path d="M4 20l4-1 11-11-3-3L5 16l-1 4zM14 6l3 3"/>',
+  public:'<path d="M4 10l8-5 8 5M6 10v8M10 10v8M14 10v8M18 10v8M4 20h16"/>',
+  trades:'<path d="M14.5 6.5a4 4 0 0 0-5 5L4 17l3 3 5.5-5.5a4 4 0 0 0 5-5l-2.5 2.5-2-2 2.5-2.5z"/>'
+};
+
+var bubbleApi = (function(){
+  var tabsEl = document.getElementById("btabs");
+  var stage = document.getElementById("bstage");
+  var detail = document.getElementById("bdetail");
+  var field = "tech", list = [], sel = 0, els = [];
+  var SIZE_F = [.62,.54,.66,.58,.6];
+
+  function iconSvg(k){
+    return '<svg class="bic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[k] + '</svg>';
+  }
+  function renderTabs(){
+    tabsEl.innerHTML = "";
+    Object.keys(FIELDS).forEach(function(k){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "btab"; b.dataset.field = k;
+      b.textContent = FIELD_LABEL[k]; b.title = FIELDS[k].name;
+      b.setAttribute("aria-pressed", String(k === field));
+      b.addEventListener("click", function(){ setField(k); });
+      tabsEl.appendChild(b);
+    });
+  }
+  function place(b, x, y, size, isSel){
+    b.style.left = (x - size/2) + "px"; b.style.top = (y - size/2) + "px";
+    b.style.width = size + "px"; b.style.height = size + "px";
+    b.style.setProperty("--fs", Math.max(12.5, size * (isSel ? .105 : .13)) + "px");
+    b.style.setProperty("--ic", (isSel ? size * .17 : size * .2) + "px");
+    b.classList.toggle("noic", !isSel && size < 95);
+  }
+  function layout(){
+    var W = stage.clientWidth, H = stage.clientHeight;
+    if(!W || !H || !els.length) return;
+    var S0 = Math.max(130, Math.min(230, Math.min(W, H) * .40));
+    var others = [];
+    els.forEach(function(e, i){ if(i !== sel) others.push(i); });
+    place(els[sel], W/2, H/2, S0, true);
+    var m = others.length;
+    others.forEach(function(idx, j){
+      var size = S0 * SIZE_F[j % SIZE_F.length];
+      var th = -Math.PI/3 + j * 2 * Math.PI / m;
+      var rx = (W/2 - size/2 - 10) * .88, ry = (H/2 - size/2 - 10) * .88;
+      var x = W/2 + rx * Math.cos(th), y = H/2 + ry * Math.sin(th);
+      var dx = x - W/2, dy = y - H/2, d = Math.sqrt(dx*dx + dy*dy) || 1, minD = S0/2 + size/2 + 12;
+      if(d < minD){ x = W/2 + dx/d * minD; y = H/2 + dy/d * minD; }
+      x = Math.max(size/2 + 4, Math.min(W - size/2 - 4, x));
+      y = Math.max(size/2 + 4, Math.min(H - size/2 - 4, y));
+      place(els[idx], x, y, size, false);
+    });
+  }
+  function build(){
+    stage.innerHTML = ""; els = [];
+    list = CAREERS.filter(function(c){ return c.f === field; });
+    list.forEach(function(c, i){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "bubble";
+      b.style.setProperty("--c", FIELDS[c.f].c);
+      b.style.setProperty("--i", i);
+      b.style.setProperty("--dx", (8 + (i * 7) % 9) + "px");
+      b.style.setProperty("--dy", (8 + (i * 5) % 9) + "px");
+      b.style.setProperty("--dur", (6.5 + (i * 3) % 5 + i * .4) + "s");
+      b.style.setProperty("--del", (-i * 1.7) + "s");
+      b.innerHTML = '<span class="bfloat"><span class="binner"><span class="bicon"></span><span class="bname"></span></span></span>';
+      b.querySelector(".bicon").innerHTML = iconSvg(c.f);
+      b.querySelector(".bname").textContent = c.n;
+      b.addEventListener("click", function(){ select(i); });
+      stage.appendChild(b); els.push(b);
+    });
+  }
+  function mark(){
+    els.forEach(function(e, i){ e.classList.toggle("sel", i === sel); e.setAttribute("aria-pressed", String(i === sel)); });
+  }
+  function renderDetail(){
+    var c = list[sel]; if(!c) return;
+    detail.style.setProperty("--c", FIELDS[c.f].c);
+    detail.innerHTML = "";
+    var head = document.createElement("div"); head.className = "bd-head";
+    var h = document.createElement("h3"); h.textContent = c.n;
+    var tag = document.createElement("span"); tag.className = "bd-tag"; tag.textContent = FIELDS[c.f].name;
+    head.appendChild(h); head.appendChild(tag);
+    var grid = document.createElement("div"); grid.className = "bd-grid";
+    function col(title, node){
+      var d = document.createElement("div"); var t = document.createElement("h4"); t.textContent = title;
+      d.appendChild(t); d.appendChild(node); grid.appendChild(d);
+    }
+    var p1 = document.createElement("p"); p1.textContent = c.d;
+    var ul = document.createElement("ul"); ul.className = "bd-chips";
+    c.s.replace(/\.$/, "").split(/,\s*/).forEach(function(sk, j){
+      var li = document.createElement("li"); li.textContent = sk.charAt(0).toUpperCase() + sk.slice(1); li.style.setProperty("--j", j); ul.appendChild(li);
+    });
+    var p3 = document.createElement("p"); p3.textContent = c.r;
+    col("What they do", p1); col("Skills to learn", ul); col("Usual route", p3);
+    detail.appendChild(head); detail.appendChild(grid);
+  }
+  function select(i){
+    sel = i; mark(); layout(); renderDetail();
+    var inner = els[i].querySelector(".binner");
+    inner.classList.remove("burst"); void inner.offsetWidth; inner.classList.add("burst");
+  }
+  function setField(k){
+    field = k; sel = 0;
+    Array.prototype.forEach.call(tabsEl.children, function(b){ b.setAttribute("aria-pressed", String(b.dataset.field === k)); });
+    build(); mark(); layout(); renderDetail();
+  }
+  if(window.ResizeObserver){ new ResizeObserver(layout).observe(stage); } else { window.addEventListener("resize", layout); }
+  renderTabs(); setField("tech");
+  return {setField:setField};
+})();
+
+function setField(k, scroll){
+  bubbleApi.setField(k);
+  if(scroll) document.getElementById("careers").scrollIntoView({behavior:"smooth"});
+}
+
+/* ---------- Quiz ---------- */
+var QUESTIONS = [
+  {q:"It is a free Saturday. What sounds best?", o:[
+    {t:"Build or fix a gadget, app or machine", p:{tech:2,trades:2}},
+    {t:"Help a friend or family member with a problem", p:{health:2,public:1}},
+    {t:"Plan an event, sell something or run a small stall", p:{business:3}},
+    {t:"Draw, edit a video or design something", p:{creative:3}}
+  ]},
+  {q:"Which kind of subject do you enjoy most?", o:[
+    {t:"Maths and Physics", p:{tech:2,trades:2}},
+    {t:"Biology and Chemistry", p:{health:3}},
+    {t:"Economics, Accountancy or Business", p:{business:3}},
+    {t:"Languages, Social Science or Arts", p:{public:2,creative:2}}
+  ]},
+  {q:"Where would you most like to work?", o:[
+    {t:"At a computer, in an office or from home", p:{tech:2,business:1,creative:1}},
+    {t:"In a hospital, clinic or lab", p:{health:3}},
+    {t:"On a site, in a workshop or a factory", p:{trades:3}},
+    {t:"In courts, schools or government offices", p:{public:3}}
+  ]},
+  {q:"How do you like to solve problems?", o:[
+    {t:"Step by step, with logic", p:{tech:3}},
+    {t:"By observing closely and caring for people", p:{health:3}},
+    {t:"By testing things with my own hands", p:{trades:3}},
+    {t:"With new ideas, visuals or stories", p:{creative:3}},
+    {t:"By talking, bargaining or following clear rules", p:{business:2,public:2}}
+  ]},
+  {q:"How long are you ready to study before you start earning?", o:[
+    {t:"About 1 to 3 years", p:{trades:2,creative:1}},
+    {t:"About 4 years", p:{tech:2,business:2,creative:1}},
+    {t:"5 years or more", p:{health:2,public:2}}
+  ]},
+  {q:"What matters most to you in a career?", o:[
+    {t:"A stable job", p:{public:2,health:1}},
+    {t:"Building things", p:{tech:2,trades:2}},
+    {t:"Being my own boss", p:{business:2,creative:2}},
+    {t:"Helping people directly", p:{health:2,public:2}}
+  ]}
+];
+var quizOut = document.getElementById("quiz-out");
+var qi = 0, scores = {};
+
+function startQuiz(){ qi = 0; scores = {}; Object.keys(FIELDS).forEach(function(k){ scores[k] = 0; }); renderQuestion(); }
+
+function renderQuestion(){
+  var Q = QUESTIONS[qi];
+  quizOut.innerHTML = "";
+  var prog = document.createElement("div"); prog.className = "bar-progress";
+  prog.innerHTML = "<i></i>"; prog.firstChild.style.width = Math.round((qi/QUESTIONS.length)*100) + "%";
+  var count = document.createElement("div"); count.className = "q-count"; count.textContent = "Question " + (qi+1) + " of " + QUESTIONS.length;
+  var q = document.createElement("p"); q.className = "q-text"; q.textContent = Q.q;
+  var wrap = document.createElement("div"); wrap.className = "opts";
+  Q.o.forEach(function(opt){
+    var b = document.createElement("button"); b.type = "button"; b.className = "opt"; b.textContent = opt.t;
+    b.addEventListener("click", function(){
+      Object.keys(opt.p).forEach(function(k){ scores[k] += opt.p[k]; });
+      qi++;
+      if(qi < QUESTIONS.length) renderQuestion(); else renderResult();
+    });
+    wrap.appendChild(b);
+  });
+  quizOut.appendChild(prog); quizOut.appendChild(count); quizOut.appendChild(q); quizOut.appendChild(wrap);
+}
+
+function renderResult(){
+  var ranked = Object.keys(scores).sort(function(a,b){ return scores[b] - scores[a]; }).slice(0,3);
+  quizOut.innerHTML = "";
+  var box = document.createElement("div"); box.className = "result";
+  var h = document.createElement("h3"); h.textContent = "Fields worth exploring first";
+  var p = document.createElement("p"); p.style.color = "#C9D3E6"; p.style.maxWidth = "60ch";
+  p.textContent = "These three fit your answers best. Read the career cards, talk to someone working in each, and keep your mind open.";
+  box.appendChild(h); box.appendChild(p);
+  ranked.forEach(function(k){
+    var m = document.createElement("div"); m.className = "match"; m.style.setProperty("--c", FIELDS[k].c);
+    var names = CAREERS.filter(function(c){ return c.f === k; }).slice(0,3).map(function(c){ return c.n; }).join(", ");
+    var s = document.createElement("strong"); s.textContent = FIELDS[k].name;
+    var d = document.createElement("div"); d.textContent = "Careers to look at: " + names + ".";
+    var btn = document.createElement("button"); btn.type = "button"; btn.className = "btn"; btn.textContent = "See " + FIELDS[k].name + " careers";
+    btn.addEventListener("click", function(){ setField(k, true); });
+    m.appendChild(s); m.appendChild(d); m.appendChild(btn); box.appendChild(m);
+  });
+  var again = document.createElement("button"); again.type = "button"; again.className = "btn ghost"; again.textContent = "Take the quiz again";
+  again.addEventListener("click", startQuiz);
+  box.appendChild(again);
+  quizOut.appendChild(box);
+}
+startQuiz();
+
+/* ---------- Team orb carousel ---------- */
+(function(){
+  var track = document.getElementById("orb-track");
+  var items = Array.prototype.slice.call(track.children);
+  var cur = 0, paused = false, resumeTimer = null, ticking = false;
+  function center(i){ var it = items[i]; return it.offsetLeft + it.offsetWidth/2; }
+  function nearest(){
+    var mid = track.scrollLeft + track.clientWidth/2, best = 0, bd = 1e9;
+    items.forEach(function(it, i){ var d = Math.abs(center(i) - mid); if(d < bd){ bd = d; best = i; } });
+    return best;
+  }
+  function mark(){
+    cur = nearest();
+    items.forEach(function(it, i){ it.classList.toggle("on", i === cur); });
+  }
+  function goTo(i){ track.scrollTo({left: center(i) - track.clientWidth/2, behavior:"smooth"}); }
+  track.addEventListener("scroll", function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(function(){ mark(); ticking = false; }); }
+  });
+  items.forEach(function(it, i){ it.addEventListener("click", function(){ goTo(i); }); });
+  function pause(){ paused = true; clearTimeout(resumeTimer); }
+  function resume(){ clearTimeout(resumeTimer); resumeTimer = setTimeout(function(){ paused = false; }, 4000); }
+  ["pointerdown","touchstart","focusin","mouseenter"].forEach(function(e){ track.addEventListener(e, pause, {passive:true}); });
+  ["pointerup","touchend","focusout","mouseleave"].forEach(function(e){ track.addEventListener(e, resume, {passive:true}); });
+  mark();
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    setInterval(function(){ if(!paused) goTo((cur + 1) % items.length); }, 2600);
+  }
+  window.addEventListener("resize", mark);
+})();
+
+/* ---------- After 10th card fan ---------- */
+(function(){
+  var COURSES = [
+    {n:"Science PUC", sub:"Engineering, medicine, science", yrs:"2", unit:"years", p1:"#BCD6FF", p2:"#EAF2FF", c:"#4C9BFF",
+     facts:[["Duration","2 years"],["Exams after","KCET, JEE Main, NEET"],["Leads to","BE/BTech, MBBS, BSc, B.Pharm"]],
+     flow:[
+      {a:"Join 1st PUC Science", b:"Choose a combination such as PCMB or PCMC. PCMB keeps both engineering and medicine open."},
+      {a:"Pass the 2nd PUC board exam", b:"Marks and entrance exam ranks both matter for admissions."},
+      {a:"Write entrance exams", b:"KCET, JEE Main and NEET. Start preparing in 1st PUC."},
+      {a:"Join a degree", b:"BE/BTech, MBBS, BSc, B.Pharm and more, chosen by rank, interest and fees."}
+     ]},
+    {n:"Commerce PUC", sub:"Finance, business, management", yrs:"2", unit:"years", p1:"#FFC4D6", p2:"#FFE9F0", c:"#FF7A59",
+     facts:[["Duration","2 years"],["Exams after","CUET, CA Foundation"],["Leads to","BCom, BBA, BBM, CA"]],
+     flow:[
+      {a:"Join 1st PUC Commerce", b:"Accountancy, Business Studies, Economics and one more subject."},
+      {a:"Pass the 2nd PUC board exam", b:"Keep your marks steady. Many degrees use them for admission."},
+      {a:"Choose a degree or professional course", b:"BCom, BBA, BBM, or CA through ICAI. CA can be started alongside a degree."},
+      {a:"Start in finance, banking or management", b:"Add Excel, Tally and communication skills while you study."}
+     ]},
+    {n:"Arts PUC", sub:"Law, media, teaching, civil services", yrs:"2", unit:"years", p1:"#E2CCFF", p2:"#F4ECFF", c:"#B27BE6",
+     facts:[["Duration","2 years"],["Exams after","CLAT, CUET, design entrances"],["Leads to","BA, law, journalism, design"]],
+     flow:[
+      {a:"Join 1st PUC Arts", b:"History, Political Science, Sociology, Economics, languages and more."},
+      {a:"Pass the 2nd PUC board exam", b:"Read widely and practise writing."},
+      {a:"Choose a degree", b:"BA, BA LLB (through CLAT), journalism, design, education or social work."},
+      {a:"Move into your career", b:"Law, teaching, media, civil services and social work. Exam preparation can start during your degree."}
+     ]},
+    {n:"Diploma (polytechnic)", sub:"Technical skills, early jobs, DCET", yrs:"3", unit:"years", p1:"#BDF0DA", p2:"#E7FAF1", c:"#3DD68C",
+     facts:[["Duration","3 years"],["Admission","State diploma process (check the Department of Technical Education)"],["Leads to","Jobs, or DCET and BE 2nd year"]],
+     flow:[
+      {a:"Pick a branch", b:"Computer Science, Mechanical, Civil, Electronics and others."},
+      {a:"Complete the 3-year diploma", b:"Semesters with labs, workshops and projects."},
+      {a:"Start working as a technician or junior engineer", b:"Build a portfolio of projects while you work."},
+      {a:"Or write DCET for lateral entry", b:"Join the 2nd year of BE/BTech directly through KEA counselling."}
+     ]},
+    {n:"ITI trades", sub:"Hands-on skills and apprenticeships", yrs:"1-2", unit:"years", p1:"#FFE2A3", p2:"#FFF4DA", c:"#F5B83D",
+     facts:[["Duration","1 to 2 years, by trade"],["Training","Workshop and on-the-job"],["Leads to","Skilled jobs, apprenticeship, own work"]],
+     flow:[
+      {a:"Choose a trade", b:"Electrician, fitter, welder, COPA, mechanic and more."},
+      {a:"Complete the ITI course", b:"Duration depends on the trade. Practical work is the focus."},
+      {a:"Do an apprenticeship", b:"Paid training with a company, which builds experience."},
+      {a:"Work, run your own workshop or study further", b:"Check the eligibility rules if you plan to continue to a diploma later."}
+     ]},
+    {n:"Short skill courses", sub:"Fast, job-ready skills", yrs:"3-6", unit:"months", p1:"#BDEFF4", p2:"#E5F9FB", c:"#35C3DA",
+     facts:[["Duration","Weeks to months"],["Exams","Usually none"],["Leads to","Entry-level work or study alongside"]],
+     flow:[
+      {a:"Pick one skill", b:"Programming basics, accounting software, graphic design, networking or spoken English."},
+      {a:"Take a short course", b:"Choose one with practical work and a certificate."},
+      {a:"Make small projects", b:"A few real examples of your work matter more than the certificate."},
+      {a:"Apply for entry-level work or keep studying", b:"Many students do a short course alongside their regular studies."}
+     ]}
+  ];
+
+
+  var ROLES = {
+    "Science PUC":[
+      {r:"Software developer", k:["Python or C basics","Maths and logic","Git","Data structures"]},
+      {r:"Doctor", k:["Biology","Chemistry","NEET problem solving","Communication"]},
+      {r:"Mechanical engineer", k:["Physics","CAD basics","Maths","Teamwork"]},
+      {r:"Researcher", k:["Lab skills","Statistics","Scientific writing"]}
+    ],
+    "Commerce PUC":[
+      {r:"Chartered accountant", k:["Accounting","Taxation basics","Excel","Tally"]},
+      {r:"Digital marketer", k:["SEO","Social media","Content writing","Analytics"]},
+      {r:"Business analyst", k:["Excel","SQL","Presentations"]},
+      {r:"Banker", k:["Numerical ability","Customer service","Financial products"]}
+    ],
+    "Arts PUC":[
+      {r:"Lawyer", k:["Reading","Legal writing","Public speaking","Research"]},
+      {r:"Journalist", k:["Writing","Interviewing","Fact-checking","Video editing"]},
+      {r:"Motion designer", k:["Design principles","Figma","After Effects","Storyboarding"]},
+      {r:"Civil servant", k:["General knowledge","Answer writing","Current affairs"]}
+    ],
+    "Diploma (polytechnic)":[
+      {r:"Software developer", k:["HTML, CSS, JavaScript","Python","Git","Databases"]},
+      {r:"Network technician", k:["Networking","Linux","Hardware repair"]},
+      {r:"CAD designer", k:["AutoCAD","SolidWorks","Reading drawings"]},
+      {r:"Electronics technician", k:["Circuits","PLC","Microcontrollers","Soldering"]}
+    ],
+    "ITI trades":[
+      {r:"Electrician", k:["Wiring","Safety","Circuit diagrams","Testing tools"]},
+      {r:"Fitter or machinist", k:["Measuring tools","Lathe and milling basics","Blueprint reading"]},
+      {r:"Welder", k:["Arc and MIG welding","Safety","Material knowledge"]},
+      {r:"Computer operator", k:["Typing","Office tools","Data entry","Basic programming"]}
+    ],
+    "Short skill courses":[
+      {r:"Web developer", k:["HTML","CSS","JavaScript","Responsive design"]},
+      {r:"Motion designer", k:["After Effects","Easing and timing","Illustrator","Storyboarding"]},
+      {r:"Video editor", k:["Premiere Pro or DaVinci Resolve","Colour correction","Sound","Storytelling"]},
+      {r:"Digital marketer", k:["Social media","Canva","Analytics","Copywriting"]}
+    ]
+  };
+
+  function buildReel(c){
+    var words = [], seen = {};
+    (ROLES[c.n] || []).forEach(function(r){ r.k.forEach(function(w){ if(!seen[w]){ seen[w] = 1; words.push(w); } }); });
+    words = words.slice(0, 10);
+    var reel = document.createElement("div"); reel.className = "reel"; reel.setAttribute("aria-hidden","true");
+    var track = document.createElement("div"); track.className = "reel-track";
+    for(var copy = 0; copy < 2; copy++){
+      words.forEach(function(w){ var sp = document.createElement("span"); sp.textContent = w; track.appendChild(sp); });
+    }
+    reel.appendChild(track);
+    return reel;
+  }
+  function buildRoles(c){
+    var wrap = document.createElement("div");
+    var h = document.createElement("h4"); h.className = "subhead"; h.textContent = "Skills to learn";
+    var n = document.createElement("p"); n.className = "subnote"; n.textContent = "Pick a role you like and start with these.";
+    var grid = document.createElement("div"); grid.className = "roles";
+    (ROLES[c.n] || []).forEach(function(r, k){
+      var card = document.createElement("article"); card.className = "role"; card.style.setProperty("--k", k);
+      var t = document.createElement("h4"); t.textContent = r.r;
+      var ul = document.createElement("ul"); ul.className = "skills";
+      r.k.forEach(function(sk, j){
+        var li = document.createElement("li"); li.textContent = sk;
+        li.style.setProperty("--k", k); li.style.setProperty("--j", j);
+        ul.appendChild(li);
+      });
+      card.appendChild(t); card.appendChild(ul); grid.appendChild(card);
+    });
+    wrap.appendChild(h); wrap.appendChild(n); wrap.appendChild(grid);
+    return wrap;
+  }
+  var deck = document.getElementById("deck");
+  var dotsEl = document.getElementById("deckDots");
+  var panel = document.getElementById("flowpanel");
+  var sel = 0;
+  var cards = [];
+
+  COURSES.forEach(function(c, i){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "fcard";
+    b.dataset.courseIndex = i;
+    b.style.setProperty("--p1", c.p1); b.style.setProperty("--p2", c.p2); b.style.setProperty("--c", c.c);
+    b.setAttribute("aria-label", c.n + ", " + c.yrs + " " + c.unit);
+    b.innerHTML = '<span class="fc-art"></span><span class="fc-top"><span class="fc-years"></span><span class="fc-unit"></span></span><span class="fc-label"><strong></strong><em></em></span>';
+    b.querySelector(".fc-years").textContent = c.yrs;
+    b.querySelector(".fc-unit").textContent = c.unit;
+    b.querySelector("strong").textContent = c.n;
+    b.querySelector("em").textContent = c.sub;
+    b.addEventListener("click", function(){ select(i); });
+    deck.appendChild(b); cards.push(b);
+    var d = document.createElement("i"); dotsEl.appendChild(d);
+  });
+
+  function renderPanel(){
+    var c = COURSES[sel];
+    if(!c) return;
+    panel.style.setProperty("--c", c.c);
+    panel.innerHTML = "";
+    var h = document.createElement("h3"); h.textContent = c.n + ": the flow";
+    var facts = document.createElement("div"); facts.className = "facts";
+    c.facts.forEach(function(f){
+      var s = document.createElement("span"); s.className = "fact";
+      var b = document.createElement("b"); b.textContent = f[0] + ": ";
+      s.appendChild(b); s.appendChild(document.createTextNode(f[1])); facts.appendChild(s);
+    });
+    var ol = document.createElement("ol"); ol.className = "flow";
+    c.flow.forEach(function(st, k){
+      var li = document.createElement("li"); li.style.setProperty("--k", k);
+      var a = document.createElement("strong"); a.textContent = st.a;
+      var d = document.createElement("span"); d.textContent = st.b;
+      li.appendChild(a); li.appendChild(d); ol.appendChild(li);
+    });
+    panel.appendChild(h); panel.appendChild(buildReel(c)); panel.appendChild(facts); panel.appendChild(ol); panel.appendChild(buildRoles(c));
+  }
+
+  function layout(){
+    var visible = cards.map(function(el, i){ return {el:el, index:i}; }).filter(function(item){ return !item.el.hidden; });
+    var selectedPosition = visible.findIndex(function(item){ return item.index === sel; });
+    visible.forEach(function(item, position){
+      var el = item.el, d = position - selectedPosition, ad = Math.abs(d);
+      el.style.setProperty("--d", d);
+      el.style.setProperty("--ad", Math.min(ad, 6));
+      el.classList.toggle("sel", item.index === sel);
+      el.setAttribute("aria-current", item.index === sel ? "true" : "false");
+      el.dataset.hide = ad > 3 ? "1" : "0";
+    });
+    document.getElementById("prevCourse").disabled = selectedPosition <= 0;
+    document.getElementById("nextCourse").disabled = selectedPosition < 0 || selectedPosition >= visible.length - 1;
+    Array.prototype.forEach.call(dotsEl.children, function(dt, i){
+      dt.hidden = cards[i].hidden;
+      dt.classList.toggle("on", i === sel);
+      dt.style.setProperty("--c", COURSES[sel].c);
+    });
+  }
+  function select(i){
+    sel = Math.max(0, Math.min(COURSES.length - 1, i));
+    layout(); renderPanel();
+  }
+  function filterCourses(){
+    var query = document.getElementById("courseSearch").value.trim().toLowerCase();
+    var matches = [];
+    COURSES.forEach(function(c, i){
+      var searchable = c.n + " " + c.sub + " " + c.facts.map(function(f){ return f.join(" "); }).join(" ") + " " + c.flow.map(function(st){ return st.a + " " + st.b; }).join(" ") + " " + (ROLES[c.n] || []).map(function(role){ return role.r + " " + role.k.join(" "); }).join(" ");
+      cards[i].hidden = query !== "" && searchable.toLowerCase().indexOf(query) === -1;
+      if(!cards[i].hidden) matches.push(i);
+    });
+    if(!matches.length){
+      document.getElementById("prevCourse").disabled = true;
+      document.getElementById("nextCourse").disabled = true;
+      Array.prototype.forEach.call(dotsEl.children, function(dot){ dot.hidden = true; });
+      panel.innerHTML = '<p class="empty">No courses match your search. Try another subject or career.</p>';
+      return;
+    }
+    if(matches.indexOf(sel) === -1) sel = matches[0];
+    layout(); renderPanel();
+  }
+  document.getElementById("courseSearch").addEventListener("input", filterCourses);
+  function moveSelection(delta, focusCard){
+    var visibleIndexes = cards.map(function(card, index){ return card.hidden ? -1 : index; }).filter(function(index){ return index !== -1; });
+    var position = visibleIndexes.indexOf(sel);
+    if(position === -1) return;
+    position = Math.max(0, Math.min(visibleIndexes.length - 1, position + delta));
+    select(visibleIndexes[position]);
+    if(focusCard) cards[sel].focus();
+  }
+  document.getElementById("prevCourse").addEventListener("click", function(){ moveSelection(-1, false); });
+  document.getElementById("nextCourse").addEventListener("click", function(){ moveSelection(1, false); });
+  deck.addEventListener("keydown", function(e){
+    if(e.key === "ArrowLeft" || e.key === "ArrowRight"){
+      e.preventDefault();
+      moveSelection(e.key === "ArrowRight" ? 1 : -1, true);
+    }
+  });
+
+  /* swipe or drag */
+  var startX = null, moved = false;
+  deck.addEventListener("pointerdown", function(e){ startX = e.clientX; moved = false; });
+  deck.addEventListener("pointermove", function(e){ if(startX !== null && Math.abs(e.clientX - startX) > 12) moved = true; });
+  deck.addEventListener("pointerup", function(e){
+    if(startX === null) return;
+    var dx = e.clientX - startX; startX = null;
+    if(Math.abs(dx) > 45){ moveSelection(dx < 0 ? 1 : -1, false); }
+  });
+  deck.addEventListener("pointercancel", function(){ startX = null; });
+  deck.addEventListener("click", function(e){ if(moved){ e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+
+  select(0);
+  window.sendToAfter10 = function(){ document.getElementById("after10").scrollIntoView({behavior:"smooth"}); };
+})();
+
+/* ---------- Login (front-end demo) ---------- */
+(function(){
+  var dlg = document.getElementById("authDlg");
+  var loginBtn = document.getElementById("loginBtn");
+  var who = document.getElementById("who");
+  var form = document.getElementById("authForm");
+  var tabLogin = document.getElementById("tabLogin");
+  var tabSignup = document.getElementById("tabSignup");
+  var nameField = document.getElementById("nameField");
+  var aName = document.getElementById("aName");
+  var aEmail = document.getElementById("aEmail");
+  var aPass = document.getElementById("aPass");
+  var err = document.getElementById("authErr");
+  var title = document.getElementById("authTitle");
+  var submit = document.getElementById("authSubmit");
+  var accounts = {};   /* kept in memory only, cleared when the page closes */
+  var user = null, mode = "login";
+
+  function setMode(m){
+    mode = m;
+    var isLogin = m === "login";
+    tabLogin.setAttribute("aria-selected", String(isLogin));
+    tabSignup.setAttribute("aria-selected", String(!isLogin));
+    nameField.hidden = isLogin;
+    title.textContent = isLogin ? "Log in to Daari" : "Create your Daari account";
+    submit.textContent = isLogin ? "Log in" : "Create account";
+    aPass.setAttribute("autocomplete", isLogin ? "current-password" : "new-password");
+    err.hidden = true;
+  }
+  function showErr(msg){ err.textContent = msg; err.hidden = false; }
+  function refreshHeader(){
+    var lbl = document.getElementById("tbAccountLbl");
+    if(user){ who.textContent = "Hi, " + user.name.split(" ")[0]; who.hidden = false; loginBtn.textContent = "Log out"; lbl.textContent = "Log out"; }
+    else { who.hidden = true; loginBtn.textContent = "Log in"; lbl.textContent = "Log in"; }
+  }
+  loginBtn.addEventListener("click", function(){
+    if(user){ user = null; refreshHeader(); return; }
+    form.reset(); setMode("login"); dlg.showModal(); aEmail.focus();
+  });
+  tabLogin.addEventListener("click", function(){ setMode("login"); });
+  tabSignup.addEventListener("click", function(){ setMode("signup"); });
+  document.getElementById("authClose").addEventListener("click", function(){ dlg.close(); });
+  dlg.addEventListener("click", function(e){ if(e.target === dlg) dlg.close(); });
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var email = aEmail.value.trim().toLowerCase(), pass = aPass.value, name = aName.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr("Enter a valid email address."); aEmail.focus(); return; }
+    if(pass.length < 6){ showErr("Use a password of at least 6 characters."); aPass.focus(); return; }
+    if(mode === "signup"){
+      if(!name){ showErr("Enter your name."); aName.focus(); return; }
+      if(accounts[email]){ showErr("That email already has an account. Use Log in instead."); return; }
+      accounts[email] = {name:name, pass:pass};
+      user = {name:name, email:email};
+    } else {
+      var acc = accounts[email];
+      if(!acc || acc.pass !== pass){ showErr("Email or password is incorrect. New here? Choose Create account."); return; }
+      user = {name:acc.name, email:email};
+    }
+    refreshHeader(); dlg.close();
+  });
+})();
+
+/* ---------- Headline motion ---------- */
+(function(){
+  var h1 = document.querySelector(".hero h1");
+  if(!h1 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var text = h1.textContent;
+  h1.setAttribute("aria-label", text);
+  h1.textContent = "";
+  text.split(" ").forEach(function(w, i){
+    var sp = document.createElement("span"); sp.className = "w"; sp.setAttribute("aria-hidden","true");
+    sp.style.setProperty("--k", i); sp.textContent = w;
+    h1.appendChild(sp); h1.appendChild(document.createTextNode(" "));
+  });
+})();
+
+/* ---------- App comfort: tab bar, share, install, offline ---------- */
+(function(){
+  /* bottom tab bar follows the section in view */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tabbar .tb[data-t]"));
+  var targets = {hero:document.querySelector(".hero"), after10:document.getElementById("after10"), careers:document.getElementById("careers"), quiz:document.getElementById("quiz")};
+  function setOn(k){ tabs.forEach(function(t){ t.classList.toggle("on", t.dataset.t === k); }); }
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ Object.keys(targets).forEach(function(k){ if(targets[k] === e.target) setOn(k); }); } });
+    }, {rootMargin:"-25% 0px -50% 0px"});
+    Object.keys(targets).forEach(function(k){ if(targets[k]) io.observe(targets[k]); });
+  }
+  document.getElementById("tbAccount").addEventListener("click", function(){ document.getElementById("loginBtn").click(); });
+
+  /* WhatsApp share */
+  var wa = document.getElementById("waShare");
+  var msg = "Daari: career guidance for students after 10th, 12th and diploma. " + location.href;
+  wa.href = "https://wa.me/?text=" + encodeURIComponent(msg);
+
+  /* install button (Chrome on Android) and hide help when already installed */
+  var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+  if(standalone){ document.getElementById("share").hidden = true; }
+  var deferred = null, ib = document.getElementById("installBtn");
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; ib.hidden = false; });
+  ib.addEventListener("click", function(){
+    if(!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function(){ deferred = null; ib.hidden = true; });
+  });
+  window.addEventListener("appinstalled", function(){ ib.hidden = true; });
+
+  /* offline copy, only on https or localhost */
+  if("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")){
+    window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
+  }
+})();
+</script>
+</body>
+</html>
